@@ -19,6 +19,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
+import javax.swing.JToolBar;
+import javax.swing.JButton;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import java.awt.Button;
 
 public class HomeScreen extends JFrame {
 
@@ -55,7 +62,7 @@ public class HomeScreen extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		getContentPane().setLayout(null);
 
-		ImageIcon icon = new ImageIcon(this.getClass().getResource("/br/com/imperio/image/fundoaguas.png"));
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("/br/com/imperio/image/Fundosoft.jpg"));
 		Image img = icon.getImage();
 		JDesktopPane desktopPane = new JDesktopPane() {
 			/**
@@ -68,12 +75,65 @@ public class HomeScreen extends JFrame {
 			}
 		};
 		
-		desktopPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		desktopPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		desktopPane.setBackground(Color.WHITE);
 
 		desktopPane.setBounds(0, 0, 1400, 800);
 		getContentPane().add(desktopPane);
 		desktopPane.setLayout(null);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		toolBar.setBounds(0, 0, 200, 54);
+		desktopPane.add(toolBar);
+		
+		JButton btnPedido = new JButton("");
+		btnPedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FormularioPedidos pedidos = new FormularioPedidos();
+				pedidos.setVisible(true);
+			}
+		});
+		btnPedido.setToolTipText("Pedido");
+		btnPedido.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/pedidos.png")));
+		toolBar.add(btnPedido);
+		
+		JButton btnProduto = new JButton("");
+		btnProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormularioProduto prod = new FormularioProduto();
+				prod.setVisible(true);
+			}
+		});
+		btnProduto.setToolTipText("Produtos");
+		btnProduto.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/box.png")));
+		toolBar.add(btnProduto);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/stock.png")));
+		btnNewButton.setToolTipText("estoque");
+		toolBar.add(btnNewButton);
+		
+		JButton btnGerente = new JButton("");
+		btnGerente.setToolTipText("Gerente");
+		btnGerente.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/manager.png")));
+		toolBar.add(btnGerente);
+		
+		JToolBar toolBar_1 = new JToolBar();
+		toolBar_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		toolBar_1.setBounds(200, 0, 1180, 54);
+		desktopPane.add(toolBar_1);
+		
+		JButton btnExit = new JButton("");
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnExit.setToolTipText("Sair");
+		btnExit.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/exit.png")));
+		toolBar_1.add(btnExit);
 		setVisible(true);
 	
 		setResizable(false);
@@ -82,24 +142,25 @@ public class HomeScreen extends JFrame {
 		setJMenuBar(menuBar);
 
 		JMenu mnPedido = new JMenu("Pedido");
-		menuBar.add(mnPedido);
-		
-		JMenuItem mntmNovoPedido = new JMenuItem("Novo Pedido");
-		mntmNovoPedido.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		mnPedido.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				FormularioPedidos pedidos = new FormularioPedidos();
 				pedidos.setVisible(true);
 			}
 		});
-		mnPedido.add(mntmNovoPedido);
-		
-		JMenuItem mntmListapedidos = new JMenuItem("Listar pedidos");
-		mnPedido.add(mntmListapedidos);
+		menuBar.add(mnPedido);
 
 		JMenu mnProduto = new JMenu("Produtos");
 		menuBar.add(mnProduto);
 		
 		JMenuItem mntmCadastraProduto = new JMenuItem("Novo Produto");
+		mntmCadastraProduto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FormularioProduto prod = new FormularioProduto();
+				prod.setVisible(true);
+			}
+		});
 		mnProduto.add(mntmCadastraProduto);
 		
 		JMenuItem mntmListaEstoque = new JMenuItem("Estoque");

@@ -36,6 +36,7 @@ public class FormularioPedidos extends JFrame {
 				try {
 					FormularioPedidos frame = new FormularioPedidos();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,7 +63,7 @@ public class FormularioPedidos extends JFrame {
 		desktopPane.setBounds(0, 0, 884, 461);
 		contentPane.add(desktopPane);
 		
-		JLabel lblPedidosEmAberto = new JLabel("Pedidos em Aberto");
+		JLabel lblPedidosEmAberto = new JLabel("Lista de Pedidos");
 		lblPedidosEmAberto.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblPedidosEmAberto.setForeground(Color.WHITE);
 		lblPedidosEmAberto.setBounds(331, 11, 250, 57);
@@ -114,9 +115,8 @@ public class FormularioPedidos extends JFrame {
 				{null, null, null, null, null},
 			},
 			new String[] {
-				"Comanda", "Cliente", "Produto", "Data", "Situa\u00E7ao"
+				"Rua", "Numero", "Valor", "Data", "Nome do Cliente"
 			}
 		));
 	}
-	
 }

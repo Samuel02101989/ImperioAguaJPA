@@ -21,6 +21,7 @@ public class FormularioUsuario extends JFrame {
 				try {
 					FormularioUsuario frame = new FormularioUsuario();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -33,7 +34,7 @@ public class FormularioUsuario extends JFrame {
 	 */
 	public FormularioUsuario() {
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(HomeScreen.class.getResource("/br/com/marmitaria/image/user.png")));
+				.getImage(HomeScreen.class.getResource("/br/com/imperio/image/user.png")));
 		setTitle("Cadastro de Usuario");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(150, 100, 900, 500);

@@ -10,19 +10,19 @@ import javax.swing.JOptionPane;
 
 import br.com.imperio.model.Usuario;
 
-public class UsuarioDao {
+public class UsuarioAguasDao {
 
-	private static UsuarioDao instance;
+	private static UsuarioAguasDao instance;
 	protected EntityManager entityManager;
 
-	public static UsuarioDao getInstance() {
+	public static UsuarioAguasDao getInstance() {
 		if (instance == null) {
-			instance = new UsuarioDao();
+			instance = new UsuarioAguasDao();
 		}
 		return instance;
 	}
 
-	public UsuarioDao() {
+	public UsuarioAguasDao() {
 		entityManager = getEM();
 	}
 
@@ -75,5 +75,39 @@ public class UsuarioDao {
 		}
 		return usuario;
 
+	}
+
+	public boolean getByLogo(String loginUsu, String senhaUsu) {
+		if ((loginUsu != null && !loginUsu.isEmpty()) && (senhaUsu != null && !senhaUsu.isEmpty())) {
+
+			String login = loginUsu.trim().toLowerCase();
+			String senha = senhaUsu.trim().toLowerCase();
+			String jpql = "select u from Usuario u where u.loginUsu = :user AND u.senhaUsu = :senha";
+			Query query = entityManager.createQuery(jpql);
+			query.setParameter("user", login);
+			query.setParameter("senha", senha);
+			@SuppressWarnings("unchecked")
+			List<Usuario> usuarioResult = query.getResultList();
+			if (usuarioResult.get(0) != null) {
+				return true;
+
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	public void remove(Usuario usuario) {
+
+		try {
+			entityManager.getTransaction().begin();
+			usuario = entityManager.find(Usuario.class, usuario.getIdUsuario());
+			entityManager.remove(usuario);
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
 	}
 }

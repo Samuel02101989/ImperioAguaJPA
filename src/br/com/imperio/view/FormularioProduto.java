@@ -30,6 +30,7 @@ public class FormularioProduto extends JFrame {
 				try {
 					FormularioProduto frame = new FormularioProduto();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,7 +49,7 @@ public class FormularioProduto extends JFrame {
 		setBounds(150, 100, 586, 410);
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
-		contentPane.setBackground(Color.BLACK);
+		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
