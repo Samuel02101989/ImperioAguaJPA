@@ -1,2 +1,2 @@
-# ImperioAguaJPA
-Controle de estoque e gerenciamento de vendas
+# MarmitariaJPA
+Sistema de Gerenciamento para restaurantes, controle de estoque e vendas de marmita
