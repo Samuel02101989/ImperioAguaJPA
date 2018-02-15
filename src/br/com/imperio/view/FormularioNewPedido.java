@@ -29,6 +29,7 @@ public class FormularioNewPedido extends JFrame {
 	private JTextField txtDataAguas;
 	private JButton btnEdit;
 	private JPanel panel;
+	private JLabel lblPedidos;
 
 	/**
 	 * Launch the application.
@@ -119,7 +120,7 @@ public class FormularioNewPedido extends JFrame {
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(113, 22, 249, 50);
+		panel.setBounds(117, 283, 249, 50);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -134,5 +135,11 @@ public class FormularioNewPedido extends JFrame {
 		panel.add(btnNewButton);
 		btnNewButton.setBackground(new Color(50, 205, 50));
 		btnNewButton.setIcon(new ImageIcon(FormularioNewPedido.class.getResource("/br/com/imperio/image/add.png")));
+		
+		lblPedidos = new JLabel("Pedidos");
+		lblPedidos.setForeground(Color.WHITE);
+		lblPedidos.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPedidos.setBounds(204, 47, 75, 14);
+		contentPane.add(lblPedidos);
 	}
 }

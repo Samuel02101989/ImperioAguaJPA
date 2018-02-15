@@ -58,7 +58,7 @@ public class FormularioPedidos extends JFrame {
 		contentPane.setLayout(null);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(Color.BLACK);
+		desktopPane.setBackground(Color.LIGHT_GRAY);
 		desktopPane.setBounds(0, 0, 884, 461);
 		contentPane.add(desktopPane);
 		

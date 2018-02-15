@@ -93,9 +93,17 @@ public class HomeScreen extends JFrame {
 		});
 		mnPedido.add(mntmNovoPedido);
 		
+		JMenuItem mntmListapedidos = new JMenuItem("Listar pedidos");
+		mnPedido.add(mntmListapedidos);
 
 		JMenu mnProduto = new JMenu("Produtos");
 		menuBar.add(mnProduto);
+		
+		JMenuItem mntmCadastraProduto = new JMenuItem("Novo Produto");
+		mnProduto.add(mntmCadastraProduto);
+		
+		JMenuItem mntmListaEstoque = new JMenuItem("Estoque");
+		mnProduto.add(mntmListaEstoque);
 		
 		JMenu mnGerente = new JMenu("Gerente");
 		menuBar.add(mnGerente);
