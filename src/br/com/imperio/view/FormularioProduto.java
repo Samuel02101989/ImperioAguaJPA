@@ -12,14 +12,15 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 public class FormularioProduto extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtNomeProd;
+	private JTextField txtQtdProd;
+	private JTextField txtPrecoProd;
+	private JTextField txtPrecoTotalProd;
 
 	/**
 	 * Launch the application.
@@ -54,20 +55,20 @@ public class FormularioProduto extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(105, 102, 190, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtNomeProd = new JTextField();
+		txtNomeProd.setBounds(105, 102, 190, 20);
+		contentPane.add(txtNomeProd);
+		txtNomeProd.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(418, 102, 73, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		txtQtdProd = new JTextField();
+		txtQtdProd.setBounds(418, 102, 73, 20);
+		contentPane.add(txtQtdProd);
+		txtQtdProd.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(155, 157, 114, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		txtPrecoProd = new JTextField();
+		txtPrecoProd.setBounds(155, 157, 114, 20);
+		contentPane.add(txtPrecoProd);
+		txtPrecoProd.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -99,25 +100,33 @@ public class FormularioProduto extends JFrame {
 		lblNewLabel_4.setBounds(289, 157, 83, 14);
 		contentPane.add(lblNewLabel_4);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(382, 157, 109, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
-		
-		JButton btnNewButton_1 = new JButton("Save");
-		btnNewButton_1.setBackground(new Color(50, 205, 50));
-		btnNewButton_1.setBounds(189, 255, 89, 23);
-		contentPane.add(btnNewButton_1);
+		txtPrecoTotalProd = new JTextField();
+		txtPrecoTotalProd.setBounds(382, 157, 109, 20);
+		contentPane.add(txtPrecoTotalProd);
+		txtPrecoTotalProd.setColumns(10);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(151, 242, 278, 47);
+		panel.setBounds(117, 240, 364, 47);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Edit");
-		btnNewButton.setBounds(164, 11, 89, 23);
-		panel.add(btnNewButton);
-		btnNewButton.setBackground(new Color(255, 140, 0));
+		JButton btnEditProd = new JButton("Edit");
+		btnEditProd.setIcon(new ImageIcon(FormularioProduto.class.getResource("/br/com/imperio/image/edit.png")));
+		btnEditProd.setBounds(149, 7, 84, 30);
+		panel.add(btnEditProd);
+		btnEditProd.setBackground(new Color(255, 140, 0));
+		
+		JButton btnSaveProdutos = new JButton("Save");
+		btnSaveProdutos.setIcon(new ImageIcon(FormularioProduto.class.getResource("/br/com/imperio/image/add.png")));
+		btnSaveProdutos.setBounds(50, 7, 84, 30);
+		panel.add(btnSaveProdutos);
+		btnSaveProdutos.setBackground(new Color(50, 205, 50));
+		
+		JButton button = new JButton("Del");
+		button.setIcon(new ImageIcon(FormularioProduto.class.getResource("/br/com/imperio/image/delete.png")));
+		button.setBounds(243, 7, 84, 30);
+		panel.add(button);
+		button.setBackground(Color.RED);
 	}
 }

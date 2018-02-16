@@ -1,14 +1,19 @@
 package br.com.imperio.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
+@SequenceGenerator(name = "cadastrapedido_seq", sequenceName = "cadastrapedido_seq",
+initialValue = 1, allocationSize = 1)
 public class CadastraPedido {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cadastrapedido_seq")
 	private Long IdCadastro;
 	public Long getIdCadastro() {
 		return IdCadastro;
@@ -40,16 +45,23 @@ public class CadastraPedido {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
-	public String getData() {
-		return Data;
+
+	public String getSituacao() {
+		return situacao;
 	}
-	public void setData(String data) {
-		Data = data;
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
 	}
 	private String Rua;
 	private String Numero;
 	private String Nome;
 	private String valor;
-	private String Data;
-	
+	private Date Data;
+	public Date getData() {
+		return Data;
+	}
+	public void setData(Date data) {
+		Data = data;
+	}
+	private String situacao;
 }

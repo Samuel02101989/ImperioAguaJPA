@@ -10,8 +10,6 @@ import javax.swing.JOptionPane;
 
 import br.com.imperio.model.CadastraPedido;
 
-
-
 public class CadastraPedidoDao {
 
 	private static CadastraPedidoDao instance;
@@ -29,7 +27,7 @@ public class CadastraPedidoDao {
 	}
 
 	private EntityManager getEM() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Marmitaria");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("imperioaguas");
 		if (entityManager == null) {
 			entityManager = factory.createEntityManager();
 		}
@@ -78,6 +76,20 @@ public class CadastraPedidoDao {
 			JOptionPane.showMessageDialog(null, "Cliente Inexistente");
 		}
 		return cad;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<CadastraPedido> findAll() {
+		CadastraPedido cadastra = new CadastraPedido();
+		try {
+			String jpql = "Select * from CadastraPedido";
+			Query query = (Query) entityManager.createQuery(jpql);
+			List<CadastraPedido> cadastraResult = ((javax.persistence.Query) query).getResultList();
+			cadastra = cadastraResult.get(0);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Tabela nao encontrada");
+		}
+		return (List<CadastraPedido>) cadastra;
 	}
 
 	public void remove(Long idCadastro) {

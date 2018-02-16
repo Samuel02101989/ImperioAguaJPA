@@ -35,6 +35,7 @@ public class FormLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtLogin;
 	private JPasswordField txtPassword;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -88,13 +89,14 @@ public class FormLogin extends JFrame {
 		txtLogin.setColumns(10);
 
 		JButton btnOk = new JButton("OK");
-		btnOk.addMouseListener(new MouseAdapter() {
+		btnOk.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if ((!txtLogin.getText().isEmpty() && !txtPassword.getText().isEmpty())) {
+			public void actionPerformed(ActionEvent e) {
+				
+				if ((!txtLogin.getText().isEmpty() && !passwordField.getText().isEmpty())) {
+					
 					try {
-						if (UsuarioAguasDao.getInstance().getByLogo(txtLogin.getText(), txtPassword.getText())) {
+						if (UsuarioAguasDao.getInstance().getByLogo(txtLogin.getText(), passwordField.getText())) {
 							HomeScreen home = new HomeScreen();
 							home.setVisible(true);
 
@@ -109,19 +111,18 @@ public class FormLogin extends JFrame {
 				}
 			}
 		});
-
 		btnOk.setBackground(new Color(50, 205, 50));
 		btnOk.setIcon(new ImageIcon(FormLogin.class.getResource("/br/com/imperio/image/add.png")));
 		btnOk.setBounds(326, 118, 89, 23);
 		contentPane.add(btnOk);
-
-		JFormattedTextField txtPassword = new JFormattedTextField();
-		txtPassword.setBounds(184, 87, 231, 20);
-		contentPane.add(txtPassword);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(FormLogin.class.getResource("/br/com/imperio/image/login.png")));
 		lblNewLabel.setBounds(29, 66, 63, 37);
 		contentPane.add(lblNewLabel);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(185, 87, 230, 20);
+		contentPane.add(passwordField);
 	}
 }

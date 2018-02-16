@@ -27,7 +27,7 @@ public class ProdutosDao {
 	}
 
 	private EntityManager getEM() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Marmitaria");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("imperioaguas");
 		if (entityManager == null) {
 			entityManager = factory.createEntityManager();
 		}

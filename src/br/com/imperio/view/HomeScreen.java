@@ -84,7 +84,7 @@ public class HomeScreen extends JFrame {
 		
 		JToolBar toolBar = new JToolBar();
 		toolBar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		toolBar.setBounds(0, 0, 200, 54);
+		toolBar.setBounds(0, 0, 280, 54);
 		desktopPane.add(toolBar);
 		
 		JButton btnPedido = new JButton("");
@@ -111,7 +111,7 @@ public class HomeScreen extends JFrame {
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/stock.png")));
-		btnNewButton.setToolTipText("estoque");
+		btnNewButton.setToolTipText("Relatorio");
 		toolBar.add(btnNewButton);
 		
 		JButton btnGerente = new JButton("");
@@ -119,9 +119,21 @@ public class HomeScreen extends JFrame {
 		btnGerente.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/manager.png")));
 		toolBar.add(btnGerente);
 		
+		JButton btnUser = new JButton("");
+		btnUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				FormularioUsuario user = new FormularioUsuario();
+				user.setVisible(true);
+				
+			}
+		});
+		btnUser.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/newContac.png")));
+		toolBar.add(btnUser);
+		
 		JToolBar toolBar_1 = new JToolBar();
 		toolBar_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		toolBar_1.setBounds(200, 0, 1180, 54);
+		toolBar_1.setBounds(280, 0, 1100, 54);
 		desktopPane.add(toolBar_1);
 		
 		JButton btnExit = new JButton("");
@@ -166,17 +178,18 @@ public class HomeScreen extends JFrame {
 		JMenuItem mntmListaEstoque = new JMenuItem("Estoque");
 		mnProduto.add(mntmListaEstoque);
 		
-		JMenu mnGerente = new JMenu("Gerente");
-		menuBar.add(mnGerente);
-		
-		JMenu mnSair = new JMenu("Sair");
-		mnSair.addMouseListener(new MouseAdapter() {
+		JMenuItem mnUsuario = new JMenu("Usuario");
+		mnUsuario.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				System.exit(0);
+			public void mouseClicked(MouseEvent e) {
+				FormularioUsuario user = new FormularioUsuario();
+				user.setVisible(true);
 			}
 		});
-		menuBar.add(mnSair);
+		menuBar.add(mnUsuario);
+		
+		JMenu mnGerente = new JMenu("Gerente");
+		menuBar.add(mnGerente);
 		
 		
 	}
