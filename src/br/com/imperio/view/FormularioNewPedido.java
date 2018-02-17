@@ -7,7 +7,12 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.com.imperio.dao.CadastraPedidoDao;
+import br.com.imperio.model.CadastraPedido;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -16,6 +21,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FormularioNewPedido extends JFrame {
 
@@ -88,6 +95,11 @@ public class FormularioNewPedido extends JFrame {
 		contentPane.add(txtNumAguas);
 		txtNumAguas.setColumns(10);
 		
+		JComboBox<Object> cboSituacao = new JComboBox<Object>();
+		cboSituacao.setModel(new DefaultComboBoxModel<Object>(new String[] {"Entregue", "Pendente", "Saiu p/ entrega"}));
+		cboSituacao.setBounds(340, 227, 91, 20);
+		contentPane.add(cboSituacao);
+		
 		JLabel lblNewLabel_1 = new JLabel("Rua:");
 		lblNewLabel_1.setBounds(50, 126, 54, 14);
 		lblNewLabel_1.setForeground(Color.WHITE);
@@ -135,6 +147,35 @@ public class FormularioNewPedido extends JFrame {
 		btnEditPedidos.setBackground(Color.ORANGE);
 		
 		JButton btnSavePedidos = new JButton("Save");
+		btnSavePedidos.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					//salvando dados
+					CadastraPedido cadPed = SavePedido(cboSituacao);
+					
+					
+					
+					if(fieldsValidationUser()){
+						//validando campos
+						JOptionPane.showMessageDialog(null, "*Campo vazio, Por favor preencha!!");
+					}else{
+						CadastraPedidoDao.getInstance().salvar(cadPed);
+						JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+						//limpando campos e desativando
+						clearFields();
+					}
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+				}
+				
+			}
+
+			
+
+		
+		});
 		btnSavePedidos.setBounds(27, 11, 84, 30);
 		panel.add(btnSavePedidos);
 		btnSavePedidos.setBackground(new Color(50, 205, 50));
@@ -152,15 +193,41 @@ public class FormularioNewPedido extends JFrame {
 		lblPedidos.setBounds(204, 47, 75, 14);
 		contentPane.add(lblPedidos);
 		
-		JComboBox cboSituacao = new JComboBox();
-		cboSituacao.setModel(new DefaultComboBoxModel(new String[] {"Entregue", "Pendente", "Saiu p/ entrega"}));
-		cboSituacao.setBounds(340, 227, 91, 20);
-		contentPane.add(cboSituacao);
-		
+
 		JLabel lblSituacao = new JLabel("Situacao:");
 		lblSituacao.setForeground(Color.WHITE);
 		lblSituacao.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblSituacao.setBounds(286, 228, 54, 14);
 		contentPane.add(lblSituacao);
 	}
+	public CadastraPedido SavePedido(JComboBox<Object> cboSituacao) {
+		CadastraPedido cadPed = new CadastraPedido();
+		cadPed.setRua(txtRuaAgua.getText());
+		cadPed.setNumero(txtNumAguas.getText());
+		cadPed.setNome(txtNomeAguas.getText());
+		cadPed.setData(txtDataAguas.getText());
+		cadPed.setValor(txtValorAgua.getText());
+		cadPed.setSituacao(cboSituacao.getSelectedItem().toString());
+		return cadPed;
+	}
+	public void clearFields() {
+		txtRuaAgua.setText(null);
+		txtNumAguas.setText(null);
+		txtDataAguas.setText(null);
+		txtNomeAguas.setText(null);
+		txtValorAgua.setText(null);
+
+		// Desativando campos
+		txtRuaAgua.setEditable(false);
+		txtNumAguas.setEditable(false);
+		txtDataAguas.setEditable(false);
+		txtNomeAguas.setEditable(false);
+		txtValorAgua.setEditable(false);
+	}
+	private boolean fieldsValidationUser() {
+		return txtRuaAgua.getText().isEmpty()
+				|| (txtNumAguas.getText().isEmpty() || (txtDataAguas.getText().isEmpty()))
+				|| (txtValorAgua.getText().isEmpty());
+	}
+	
 }

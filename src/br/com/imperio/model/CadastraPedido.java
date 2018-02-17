@@ -9,11 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = "cadastrapedido_seq", sequenceName = "cadastrapedido_seq",
-initialValue = 1, allocationSize = 1)
+
 public class CadastraPedido {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cadastrapedido_seq")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long IdCadastro;
 	public Long getIdCadastro() {
 		return IdCadastro;
@@ -56,12 +55,12 @@ public class CadastraPedido {
 	private String Numero;
 	private String Nome;
 	private String valor;
-	private Date Data;
-	public Date getData() {
+	private String Data;
+	public String getData() {
 		return Data;
 	}
-	public void setData(Date data) {
-		Data = data;
+	public void setData(String string) {
+		Data = string;
 	}
 	private String situacao;
 }
