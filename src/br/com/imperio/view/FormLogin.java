@@ -60,10 +60,11 @@ public class FormLogin extends JFrame {
 	public FormLogin() {
 		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		setTitle("Bem Vindo");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FormLogin.class.getResource("/br/com/imperio/image/user.png")));
-		
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(
+				Toolkit.getDefaultToolkit().getImage(FormLogin.class.getResource("/br/com/imperio/image/user.png")));
+
+		setResizable(false);
 		setBounds(100, 100, 450, 200);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
@@ -92,13 +93,14 @@ public class FormLogin extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if ((!txtLogin.getText().isEmpty() && !passwordField.getText().isEmpty())) {
-					
+
 					try {
 						if (UsuarioAguasDao.getInstance().getByLogo(txtLogin.getText(), passwordField.getText())) {
 							HomeScreen home = new HomeScreen();
 							home.setVisible(true);
+							dispose();
 
 						} else {
 							JOptionPane.showMessageDialog(null, "Campo de Login ou Senha vazio !!");
@@ -113,16 +115,39 @@ public class FormLogin extends JFrame {
 		});
 		btnOk.setBackground(new Color(50, 205, 50));
 		btnOk.setIcon(new ImageIcon(FormLogin.class.getResource("/br/com/imperio/image/add.png")));
-		btnOk.setBounds(326, 118, 89, 23);
+		btnOk.setBounds(260, 118, 89, 23);
 		contentPane.add(btnOk);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(FormLogin.class.getResource("/br/com/imperio/image/login.png")));
-		lblNewLabel.setBounds(29, 66, 63, 37);
+		lblNewLabel.setBounds(58, 47, 46, 37);
 		contentPane.add(lblNewLabel);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(185, 87, 230, 20);
 		contentPane.add(passwordField);
+		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		button.setIcon(new ImageIcon(FormLogin.class.getResource("/br/com/imperio/image/ifexit.png")));
+		button.setBackground(Color.RED);
+		button.setBounds(368, 118, 46, 23);
+		contentPane.add(button);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(FormLogin.class.getResource("/br/com/imperio/image/gerente.png")));
+		button_1.setToolTipText("Acesso Restrito");
+		button_1.setBackground(Color.YELLOW);
+		button_1.setBounds(29, 118, 46, 23);
+		contentPane.add(button_1);
+		
+		JLabel lblesqueciASenha = new JLabel("*Esqueci a senha");
+		lblesqueciASenha.setForeground(Color.WHITE);
+		lblesqueciASenha.setBounds(25, 146, 121, 14);
+		contentPane.add(lblesqueciASenha);
 	}
 }

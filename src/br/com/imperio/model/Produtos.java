@@ -7,8 +7,10 @@ import javax.persistence.Id;
 
 @Entity
 public class Produtos {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	private Long IdProduto;
 
 	public Long getIdProduto() {
@@ -47,6 +49,33 @@ public class Produtos {
 	public String quantProd;
 	public String precoProd;
 	public String precounit;
+	public String dataEntrega;
+	public String placa;
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+
+	public String getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(String veiculo) {
+		this.veiculo = veiculo;
+	}
+
+	public String veiculo;
+
+	public String getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(String dataEntrega) {
+		dataEntrega = dataEntrega;
+	}
 
 	public String getPrecounit() {
 		return precounit;

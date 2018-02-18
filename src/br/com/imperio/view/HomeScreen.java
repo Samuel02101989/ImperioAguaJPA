@@ -54,9 +54,11 @@ public class HomeScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public HomeScreen() {
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(HomeScreen.class.getResource("/br/com/imperio/image/food.png")));
-		setTitle("Imperio das Aguas");
+
+		setIconImage(
+				Toolkit.getDefaultToolkit().getImage(HomeScreen.class.getResource("/br/com/imperio/image/food.png")));
+		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		setTitle("Imperio das Aguas 1.0");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -74,19 +76,19 @@ public class HomeScreen extends JFrame {
 				g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 			}
 		};
-		
+
 		desktopPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		desktopPane.setBackground(Color.WHITE);
 
 		desktopPane.setBounds(0, 0, 1400, 800);
 		getContentPane().add(desktopPane);
 		desktopPane.setLayout(null);
-		
+
 		JToolBar toolBar = new JToolBar();
 		toolBar.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		toolBar.setBounds(0, 0, 280, 54);
 		desktopPane.add(toolBar);
-		
+
 		JButton btnPedido = new JButton("");
 		btnPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -97,7 +99,7 @@ public class HomeScreen extends JFrame {
 		btnPedido.setToolTipText("Pedido");
 		btnPedido.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/pedidos.png")));
 		toolBar.add(btnPedido);
-		
+
 		JButton btnProduto = new JButton("");
 		btnProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,34 +110,34 @@ public class HomeScreen extends JFrame {
 		btnProduto.setToolTipText("Produtos");
 		btnProduto.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/box.png")));
 		toolBar.add(btnProduto);
-		
+
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/stock.png")));
 		btnNewButton.setToolTipText("Relatorio");
 		toolBar.add(btnNewButton);
-		
+
 		JButton btnGerente = new JButton("");
 		btnGerente.setToolTipText("Gerente");
 		btnGerente.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/manager.png")));
 		toolBar.add(btnGerente);
-		
+
 		JButton btnUser = new JButton("");
 		btnUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				FormularioUsuario user = new FormularioUsuario();
 				user.setVisible(true);
-				
+
 			}
 		});
 		btnUser.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/newContac.png")));
 		toolBar.add(btnUser);
-		
+
 		JToolBar toolBar_1 = new JToolBar();
 		toolBar_1.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		toolBar_1.setBounds(280, 0, 1100, 54);
 		desktopPane.add(toolBar_1);
-		
+
 		JButton btnExit = new JButton("");
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -147,7 +149,7 @@ public class HomeScreen extends JFrame {
 		btnExit.setIcon(new ImageIcon(HomeScreen.class.getResource("/br/com/imperio/image/exit.png")));
 		toolBar_1.add(btnExit);
 		setVisible(true);
-	
+
 		setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -165,7 +167,7 @@ public class HomeScreen extends JFrame {
 
 		JMenu mnProduto = new JMenu("Produtos");
 		menuBar.add(mnProduto);
-		
+
 		JMenuItem mntmCadastraProduto = new JMenuItem("Novo Produto");
 		mntmCadastraProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -174,10 +176,10 @@ public class HomeScreen extends JFrame {
 			}
 		});
 		mnProduto.add(mntmCadastraProduto);
-		
+
 		JMenuItem mntmListaEstoque = new JMenuItem("Estoque");
 		mnProduto.add(mntmListaEstoque);
-		
+
 		JMenuItem mnUsuario = new JMenu("Usuario");
 		mnUsuario.addMouseListener(new MouseAdapter() {
 			@Override
@@ -187,10 +189,9 @@ public class HomeScreen extends JFrame {
 			}
 		});
 		menuBar.add(mnUsuario);
-		
+
 		JMenu mnGerente = new JMenu("Gerente");
 		menuBar.add(mnGerente);
-		
-		
+
 	}
 }

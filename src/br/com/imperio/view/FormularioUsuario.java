@@ -24,6 +24,8 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FormularioUsuario extends JFrame {
 
@@ -66,6 +68,16 @@ public class FormularioUsuario extends JFrame {
 		contentPane.setLayout(null);
 
 		txtNomeUser = new JTextField();
+		txtNomeUser.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String NomeUser = "0987654321";
+				if (NomeUser.contains(e.getKeyChar() + "")) {
+					e.consume();
+
+				}
+			}
+		});
 		txtNomeUser.setBounds(83, 71, 362, 20);
 		contentPane.add(txtNomeUser);
 		txtNomeUser.setColumns(10);
@@ -105,6 +117,12 @@ public class FormularioUsuario extends JFrame {
 		contentPane.add(lblNewLabel_3);
 
 		txtCpfUser = new JTextField();
+		try {
+			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("###.###.###-##");
+			txtCpfUser = new javax.swing.JFormattedTextField(format_textField4);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		txtCpfUser.setColumns(10);
 		txtCpfUser.setBounds(83, 179, 164, 20);
 		contentPane.add(txtCpfUser);
