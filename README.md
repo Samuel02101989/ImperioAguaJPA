@@ -1,2 +1,2 @@
-# MarmitariaJPA
-Sistema de Gerenciamento para restaurantes, controle de estoque e vendas de marmita
+# ImperioAguasJPA
+Sistema de Gerenciamento para controle de vendas e aguas

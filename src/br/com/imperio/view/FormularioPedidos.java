@@ -73,23 +73,7 @@ public class FormularioPedidos extends JFrame {
 		readjTable();
 	}
 	
-	//METODO  DE INSERCAO DE DADOS NA TABELA 
-	public void readjTable(){
-		DefaultTableModel modelo = (DefaultTableModel)tblPedidos.getModel();
-		modelo.setNumRows(0);
-		CadastraPedidoDao cadao = new CadastraPedidoDao();
-
-		for(CadastraPedido c: cadao.findAll()){
-	 
-			modelo.addRow(new Object[]{
-					c.getRua(),
-					c.getNumero(),
-					c.getData(),
-					c.getValor(), 
-					c.getSituacao()});
-
-	}
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -140,6 +124,7 @@ public class FormularioPedidos extends JFrame {
 						JOptionPane.showMessageDialog(null, "*Campo vazio, Por favor preencha!!");
 					} else {
 						CadastraPedidoDao.getInstance().salvar(cadPed);
+						
 						JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
 						// limpando campos e desativando
 						clearFields();
@@ -168,17 +153,8 @@ public class FormularioPedidos extends JFrame {
 		
 		tblPedidos = new JTable();
 		tblPedidos.setModel(new DefaultTableModel(
+				
 			new Object[][] {
-				{null, "", null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
 			},
 			new String[] {
 				"Rua", "Numero", "Valor", "Data", "Nome", "Situacao"
@@ -279,6 +255,17 @@ public class FormularioPedidos extends JFrame {
 		txtDataPed.setColumns(10);
 		txtDataPed.setBounds(623, 143, 72, 20);
 		desktopPane.add(txtDataPed);
+		
+		JButton btnNewButton = new JButton("Teste");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastraPedido cadPed = new CadastraPedido();
+				CadastraPedidoDao cadDao = new CadastraPedidoDao();
+				readjTable();
+			}
+		});
+		btnNewButton.setBounds(82, 74, 89, 23);
+		desktopPane.add(btnNewButton);
 	}
 	public CadastraPedido SavePedido(JComboBox<Object> cboSitua) {
 		CadastraPedido cadPed = new CadastraPedido();
@@ -310,5 +297,21 @@ public class FormularioPedidos extends JFrame {
 		return txtRuaPed.getText().isEmpty() || (txtNumPed.getText().isEmpty() || (txtDataPed.getText().isEmpty()))
 				|| (txtValorPed.getText().isEmpty() || (txtNomeClie.getText().isEmpty()));
 	}
+	//METODO  DE INSERCAO DE DADOS NA TABELA 
+		public void readjTable(){
+			DefaultTableModel modelo = (DefaultTableModel)tblPedidos.getModel();
+			modelo.setNumRows(0);
+			CadastraPedidoDao cadao = new CadastraPedidoDao();
 
+			for(CadastraPedido c: cadao.findAll()){
+		 
+				modelo.addRow(new Object[]{
+						c.getRua(),
+						c.getNumero(),
+						c.getValor(),
+						c.getData(), 
+						c.getSituacao()});
+
+		}
+		}
 }

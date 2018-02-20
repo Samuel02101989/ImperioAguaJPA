@@ -82,15 +82,16 @@ public class CadastraPedidoDao {
 	public List<CadastraPedido> findAll() {
 		CadastraPedido cadastra = new CadastraPedido();
 		try {
-			String jpql = "Select * from CadastraPedido";
+			String jpql = ("Select c from CadastraPedido c");
 			Query query = (Query) entityManager.createQuery(jpql);
 			List<CadastraPedido> cadastraResult = ((javax.persistence.Query) query).getResultList();
-			cadastra = cadastraResult.get(0);
+			cadastra = (CadastraPedido) cadastraResult;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Tabela nao encontrada");
 		}
 		return (List<CadastraPedido>) cadastra;
 	}
+	
 
 	public void remove(Long idCadastro) {
 		EntityManager em = getEM();
