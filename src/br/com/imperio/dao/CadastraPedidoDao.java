@@ -1,5 +1,6 @@
 package br.com.imperio.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.management.Query;
@@ -24,6 +25,10 @@ public class CadastraPedidoDao {
 
 	public CadastraPedidoDao() {
 		entityManager = getEM();
+	}
+
+	public CadastraPedidoDao(EntityManagerFactory factory) {
+		// TODO Auto-generated constructor stub
 	}
 
 	private EntityManager getEM() {
@@ -80,16 +85,20 @@ public class CadastraPedidoDao {
 
 	@SuppressWarnings("unchecked")
 	public List<CadastraPedido> findAll() {
-		CadastraPedido cadastra = new CadastraPedido();
+		
+		
+		List<CadastraPedido> cadastraResult = null;
+		
 		try {
 			String jpql = ("Select c from CadastraPedido c");
 			Query query = (Query) entityManager.createQuery(jpql);
-			List<CadastraPedido> cadastraResult = ((javax.persistence.Query) query).getResultList();
-			cadastra = (CadastraPedido) cadastraResult;
+			cadastraResult = ((javax.persistence.Query) query).getResultList();
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Tabela nao encontrada");
 		}
-		return (List<CadastraPedido>) cadastra;
+		return cadastraResult;
+		
 	}
 	
 
