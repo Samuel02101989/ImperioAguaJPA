@@ -236,23 +236,11 @@ public class FormularioPedidos extends JFrame {
 		desktopPane.add(label_5);
 
 		txtValorPed = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("R$############");
-			txtValorPed = new javax.swing.JFormattedTextField(format_textField4);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 		txtValorPed.setColumns(10);
 		txtValorPed.setBounds(500, 143, 72, 20);
 		desktopPane.add(txtValorPed);
 
 		txtDataPed = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("##/##/####");
-			txtDataPed = new javax.swing.JFormattedTextField(format_textField4);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 		txtDataPed.setColumns(10);
 		txtDataPed.setBounds(623, 143, 72, 20);
 		desktopPane.add(txtDataPed);
@@ -299,7 +287,7 @@ public class FormularioPedidos extends JFrame {
 	}
 
 	private boolean fieldsValidationUser() {
-		return txtRuaPed.getText().isEmpty() || (txtNumPed.getText().isEmpty() || (txtDataPed.getText().isEmpty()))
+		return txtRuaPed.getText().isEmpty() || (txtNumPed.getText().isEmpty() )
 				|| (txtValorPed.getText().isEmpty() || (txtNomeClie.getText().isEmpty()));
 	}
 

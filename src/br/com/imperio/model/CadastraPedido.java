@@ -70,6 +70,7 @@ public class CadastraPedido {
 	private String valor;
 	private String Data;
 
+
 	public String getData() {
 		return Data;
 	}
@@ -81,7 +82,7 @@ public class CadastraPedido {
 	private String situacao;
 
 	// metodo para retornar um array com os dados do pedidos
-	public Vector<String> convertVector() {
+	/*public Vector<String> ObterDados() {
 		Vector<String> dados = new Vector<String>();
 		dados.addElement(Rua);
 		dados.addElement(Numero);
@@ -90,5 +91,9 @@ public class CadastraPedido {
 		dados.addElement(Nome);
 		dados.addElement(situacao);
 		return dados;
-	}
+	}*/
+	public Object[] obterDados(){
+		return new Object[]{Rua, Numero, valor, Data, Nome, situacao};
+
+}
 }

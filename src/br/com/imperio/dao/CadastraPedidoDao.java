@@ -87,7 +87,7 @@ public class CadastraPedidoDao {
 	public List<CadastraPedido> findAll() {
 		
 		
-		List<CadastraPedido> cadastraResult = null;
+		List<CadastraPedido> cadastraResult = new ArrayList<>();
 		
 		try {
 			String jpql = ("Select c from CadastraPedido c");

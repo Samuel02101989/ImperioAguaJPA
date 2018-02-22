@@ -21,7 +21,7 @@ public class ControlImperio {
 		List<CadastraPedido> listado = cadao.findAll();
 
 		for (CadastraPedido pedido : listado) {
-			Vector<String> dados = pedido.convertVector();
+			Object[] dados = pedido.obterDados();
 			dadosTable.addRow(dados);
 		}
 		

@@ -71,12 +71,6 @@ public class FormularioProduto extends JFrame {
 		txtNomeProd.setColumns(10);
 
 		txtQtdProd = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("#######");
-			txtQtdProd = new javax.swing.JFormattedTextField(format_textField4);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 		txtQtdProd.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -91,12 +85,6 @@ public class FormularioProduto extends JFrame {
 		txtQtdProd.setColumns(10);
 
 		txtPrecoUnit = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("R$############");
-			txtPrecoUnit = new javax.swing.JFormattedTextField(format_textField4);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 		txtPrecoUnit.setBounds(155, 157, 114, 20);
 		contentPane.add(txtPrecoUnit);
 		txtPrecoUnit.setColumns(10);
@@ -132,12 +120,6 @@ public class FormularioProduto extends JFrame {
 		contentPane.add(lblNewLabel_4);
 
 		txtPrecoTotalProd = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("R$############");
-			txtPrecoTotalProd = new javax.swing.JFormattedTextField(format_textField4);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
 		txtPrecoTotalProd.setBounds(382, 157, 129, 20);
 		contentPane.add(txtPrecoTotalProd);
 		txtPrecoTotalProd.setColumns(10);
@@ -195,12 +177,6 @@ public class FormularioProduto extends JFrame {
 		contentPane.add(lblData);
 
 		txtDataEntrega = new JTextField();
-		try {
-			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("##/##/####");
-			txtDataEntrega = new javax.swing.JFormattedTextField(format_textField4);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		txtDataEntrega.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
