@@ -3,10 +3,11 @@ package br.com.imperio.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Query;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
 import br.com.imperio.model.CadastraPedido;
@@ -91,11 +92,12 @@ public class CadastraPedidoDao {
 		
 		try {
 			String jpql = ("Select c from CadastraPedido c");
-			Query query = (Query) entityManager.createQuery(jpql);
-			cadastraResult = ((javax.persistence.Query) query).getResultList();
+			Query query =  entityManager.createQuery(jpql);
+			cadastraResult = query.getResultList();
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Tabela nao encontrada");
+			e.printStackTrace();
 		}
 		return cadastraResult;
 		

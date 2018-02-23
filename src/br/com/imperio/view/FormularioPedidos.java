@@ -19,6 +19,7 @@ import javax.swing.table.TableRowSorter;
 
 import br.com.imperio.dao.CadastraPedidoDao;
 import br.com.imperio.model.CadastraPedido;
+import net.proteanit.sql.DbUtils;
 
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -36,8 +37,6 @@ import java.util.Vector;
 
 import br.com.imperio.controller.*;
 
-
-
 public class FormularioPedidos extends JFrame {
 
 	/**
@@ -45,18 +44,12 @@ public class FormularioPedidos extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable tblPedidos;
 	private JTextField txtRuaPed;
 	private JTextField txtNumPed;
 	private JTextField txtNomeClie;
 	private JTextField txtValorPed;
 	private JTextField txtDataPed;
-
-	/**
-	 * Launch the application.
-	 */
-
-	DefaultTableModel dadosTable = new DefaultTableModel();
+	private JTable tblTable;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -76,9 +69,11 @@ public class FormularioPedidos extends JFrame {
 	public void initComponente() {
 		// TODO Auto-generated method stub
 		initComponente();
-		String nomeColunas[] = new String[] { "Rua", "Numero", "Data", "Nome", "Situacao" };
-		dadosTable.setColumnIdentifiers(nomeColunas);
-		
+
+		/*
+		 * String nomeColunas[] = new String[] { "Rua", "Numero", "Data",
+		 * "Nome", "Situacao" }; dadosTable.setColumnIdentifiers(nomeColunas);
+		 */
 
 	}
 
@@ -115,27 +110,33 @@ public class FormularioPedidos extends JFrame {
 		panel.setLayout(null);
 
 		JComboBox<Object> cboSitua = new JComboBox<Object>();
-		cboSitua.setModel(new DefaultComboBoxModel(new String[] { "Entregue", "Pendente", "Saiu p/Entrega" }));
 		cboSitua.setBounds(517, 179, 91, 20);
+		cboSitua.setModel(new DefaultComboBoxModel(new String[] { "Entregue", "Pendente", "Saiu p/Entrega" }));
 		desktopPane.add(cboSitua);
 
 		JButton btnNovoPedido = new JButton("Novo Pedido");
 		btnNovoPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				if (fieldsValidationUser()) {
+					CadastraPedido p = new CadastraPedido(txtRuaPed.getText(), Integer.valueOf(txtNumPed.getText()),
+							txtNomeClie.getText(), txtValorPed.getText(), txtDataPed.getText(),
+							cboSitua.getSelectedItem().toString());
+
+					DefaultTableModel tabela = (DefaultTableModel) tblTable.getModel();
+					tabela.addRow(p.obterDados());
+				}
+
 				try {
 					// salvando dados
 					CadastraPedido cadPed = SavePedido(cboSitua);
 
-					if (fieldsValidationUser()) {
-						// validando campos
-						JOptionPane.showMessageDialog(null, "*Campo vazio, Por favor preencha!!");
-					} else {
-						CadastraPedidoDao.getInstance().salvar(cadPed);
+					CadastraPedidoDao.getInstance().salvar(cadPed);
 
-						JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-						// limpando campos e desativando
-						clearFields();
-					}
+					JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+					// limpando campos e desativando
+					clearFields();
+
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Erro ao salvar!");
 				}
@@ -153,28 +154,19 @@ public class FormularioPedidos extends JFrame {
 		btnEditarPedido.setBackground(new Color(255, 140, 0));
 		panel.add(btnEditarPedido);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(66, 237, 788, 187);
-		desktopPane.add(scrollPane);
-
-		tblPedidos = new JTable();
-		tblPedidos.setModel(new DefaultTableModel(
-
-				new Object[][] {}, new String[] { "Rua", "Numero", "Valor", "Data", "Nome", "Situacao" }));
-		scrollPane.setViewportView(tblPedidos);
-
 		JLabel lbl = new JLabel("Rua:");
+		lbl.setBounds(67, 143, 54, 14);
 		lbl.setForeground(Color.WHITE);
 		lbl.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lbl.setBounds(67, 143, 54, 14);
 		desktopPane.add(lbl);
 
 		txtRuaPed = new JTextField();
-		txtRuaPed.setColumns(10);
 		txtRuaPed.setBounds(116, 143, 199, 20);
+		txtRuaPed.setColumns(10);
 		desktopPane.add(txtRuaPed);
 
 		txtNumPed = new JTextField();
+		txtNumPed.setBounds(389, 143, 62, 20);
 		txtNumPed.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -187,22 +179,22 @@ public class FormularioPedidos extends JFrame {
 			}
 		});
 		txtNumPed.setColumns(10);
-		txtNumPed.setBounds(389, 143, 62, 20);
 		desktopPane.add(txtNumPed);
 
 		JLabel label_1 = new JLabel("Numero:");
+		label_1.setBounds(325, 143, 54, 14);
 		label_1.setForeground(Color.WHITE);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_1.setBounds(325, 143, 54, 14);
 		desktopPane.add(label_1);
 
 		JLabel label_2 = new JLabel("Nome:");
+		label_2.setBounds(67, 181, 54, 14);
 		label_2.setForeground(Color.WHITE);
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_2.setBounds(67, 181, 54, 14);
 		desktopPane.add(label_2);
 
 		txtNomeClie = new JTextField();
+		txtNomeClie.setBounds(116, 179, 334, 20);
 		txtNomeClie.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -214,56 +206,71 @@ public class FormularioPedidos extends JFrame {
 			}
 		});
 		txtNomeClie.setColumns(10);
-		txtNomeClie.setBounds(116, 179, 334, 20);
 		desktopPane.add(txtNomeClie);
 
 		JLabel label_3 = new JLabel("Valor:");
+		label_3.setBounds(461, 143, 46, 14);
 		label_3.setForeground(Color.WHITE);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_3.setBounds(461, 143, 46, 14);
 		desktopPane.add(label_3);
 
 		JLabel label_4 = new JLabel("Data:");
+		label_4.setBounds(582, 143, 46, 14);
 		label_4.setForeground(Color.WHITE);
 		label_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_4.setBounds(582, 143, 46, 14);
 		desktopPane.add(label_4);
 
 		JLabel label_5 = new JLabel("Situacao:");
+		label_5.setBounds(463, 179, 54, 14);
 		label_5.setForeground(Color.WHITE);
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_5.setBounds(463, 179, 54, 14);
 		desktopPane.add(label_5);
 
 		txtValorPed = new JTextField();
-		txtValorPed.setColumns(10);
 		txtValorPed.setBounds(500, 143, 72, 20);
+		txtValorPed.setColumns(10);
 		desktopPane.add(txtValorPed);
 
 		txtDataPed = new JTextField();
-		txtDataPed.setColumns(10);
+		try {
+			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("##/##/##");
+			txtDataPed = new javax.swing.JFormattedTextField(format_textField4);
+		} catch (Exception e) {
+           
+		}
 		txtDataPed.setBounds(623, 143, 72, 20);
+		txtDataPed.setColumns(10);
 		desktopPane.add(txtDataPed);
 
-		JButton btnNewButton = new JButton("Teste");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ControlImperio control = new ControlImperio();
-				
-				control.readJtable();
-				
-				
-				tblPedidos.setModel(dadosTable);
-			}
-		});
-		btnNewButton.setBounds(82, 74, 89, 23);
-		desktopPane.add(btnNewButton);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(70, 224, 748, 206);
+		desktopPane.add(scrollPane);
+
+		tblTable = new JTable();
+		tblTable.setEnabled(false);
+		tblTable.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Rua", "Numero", "Valor", "Data", "Nome", "Situacao" }));
+		tblTable.getColumnModel().getColumn(0).setPreferredWidth(125);
+		tblTable.getColumnModel().getColumn(0).setMinWidth(20);
+		tblTable.getColumnModel().getColumn(1).setPreferredWidth(47);
+		tblTable.getColumnModel().getColumn(1).setMinWidth(20);
+		tblTable.getColumnModel().getColumn(2).setPreferredWidth(110);
+		tblTable.getColumnModel().getColumn(2).setMinWidth(20);
+		tblTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+		tblTable.getColumnModel().getColumn(3).setMinWidth(20);
+		tblTable.getColumnModel().getColumn(4).setPreferredWidth(60);
+		tblTable.getColumnModel().getColumn(4).setMinWidth(20);
+		tblTable.getColumnModel().getColumn(5).setPreferredWidth(90);
+		tblTable.getColumnModel().getColumn(5).setMinWidth(20);
+		scrollPane.setViewportView(tblTable);
 	}
 
 	public CadastraPedido SavePedido(JComboBox<Object> cboSitua) {
-		CadastraPedido cadPed = new CadastraPedido();
+		CadastraPedido cadPed = new CadastraPedido(txtRuaPed.getText(), Integer.parseInt(txtNumPed.getText()),
+				txtNomeClie.getText(), txtValorPed.getText(), txtDataPed.getText(),
+				cboSitua.getSelectedItem().toString());
 		cadPed.setRua(txtRuaPed.getText());
-		cadPed.setNumero(txtNumPed.getText());
+		cadPed.setNumero(Integer.parseInt(txtNumPed.getText()));
 		cadPed.setNome(txtNomeClie.getText());
 		cadPed.setData(txtDataPed.getText());
 		cadPed.setValor(txtValorPed.getText());
@@ -287,8 +294,18 @@ public class FormularioPedidos extends JFrame {
 	}
 
 	private boolean fieldsValidationUser() {
-		return txtRuaPed.getText().isEmpty() || (txtNumPed.getText().isEmpty() )
-				|| (txtValorPed.getText().isEmpty() || (txtNomeClie.getText().isEmpty()));
+		boolean valido = true;
+		if (txtRuaPed.getText().isEmpty() || (txtNumPed.getText().isEmpty())
+				|| (txtValorPed.getText().isEmpty() || (txtNomeClie.getText().isEmpty()))) {
+			valido = false;
+			JOptionPane.showMessageDialog(null, "*Preenha os campos obrigatorios");
+		}
+		try {
+			Integer.valueOf(txtNumPed.getText());
+		} catch (Exception e) {
+			valido = false;
+			JOptionPane.showMessageDialog(null, "Alerta, Campo valor aceita apenas numeros!!");
+		}
+		return valido;
 	}
-
 }

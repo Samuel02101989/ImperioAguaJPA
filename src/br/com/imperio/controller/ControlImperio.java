@@ -12,19 +12,12 @@ import br.com.imperio.model.CadastraPedido;
 
 public class ControlImperio {
 
-	public void readJtable() {
-		
-		DefaultTableModel dadosTable = new DefaultTableModel();
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("imperioaguas");
+	public List<CadastraPedido> findAllCadastraPedidos() {
 		
 		CadastraPedidoDao cadao = new CadastraPedidoDao();
 		List<CadastraPedido> listado = cadao.findAll();
 
-		for (CadastraPedido pedido : listado) {
-			Object[] dados = pedido.obterDados();
-			dadosTable.addRow(dados);
-		}
-		
+		return listado;
 	}
 	
 
