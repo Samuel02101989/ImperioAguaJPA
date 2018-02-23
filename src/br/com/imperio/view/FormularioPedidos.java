@@ -4,38 +4,32 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 import br.com.imperio.dao.CadastraPedidoDao;
 import br.com.imperio.model.CadastraPedido;
-import net.proteanit.sql.DbUtils;
 
-import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JComboBox;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.List;
-import java.util.Vector;
-
-import br.com.imperio.controller.*;
 
 public class FormularioPedidos extends JFrame {
 
@@ -65,15 +59,15 @@ public class FormularioPedidos extends JFrame {
 		});
 	}
 
+	DefaultTableModel dadosTable = new DefaultTableModel();
+	private JTextField txtHora;
+
 	@SuppressWarnings("unused")
 	public void initComponente() {
 		// TODO Auto-generated method stub
 		initComponente();
-
-		/*
-		 * String nomeColunas[] = new String[] { "Rua", "Numero", "Data",
-		 * "Nome", "Situacao" }; dadosTable.setColumnIdentifiers(nomeColunas);
-		 */
+		String nomeColunas[] = new String[] { "Rua", "Numero", "Data", "Nome", "Situacao" };
+		dadosTable.setColumnIdentifiers(nomeColunas);
 
 	}
 
@@ -121,10 +115,11 @@ public class FormularioPedidos extends JFrame {
 				if (fieldsValidationUser()) {
 					CadastraPedido p = new CadastraPedido(txtRuaPed.getText(), Integer.valueOf(txtNumPed.getText()),
 							txtNomeClie.getText(), txtValorPed.getText(), txtDataPed.getText(),
-							cboSitua.getSelectedItem().toString());
+							cboSitua.getSelectedItem().toString(),txtHora.getText());
 
 					DefaultTableModel tabela = (DefaultTableModel) tblTable.getModel();
 					tabela.addRow(p.obterDados());
+
 				}
 
 				try {
@@ -136,6 +131,7 @@ public class FormularioPedidos extends JFrame {
 					JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
 					// limpando campos e desativando
 					clearFields();
+					activeFields();
 
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Erro ao salvar!");
@@ -233,48 +229,77 @@ public class FormularioPedidos extends JFrame {
 
 		txtDataPed = new JTextField();
 		try {
-			javax.swing.text.MaskFormatter format_textField4 = new javax.swing.text.MaskFormatter("##/##/##");
-			txtDataPed = new javax.swing.JFormattedTextField(format_textField4);
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/##");
+			txtDataPed = new javax.swing.JFormattedTextField(format_textField3);
 		} catch (Exception e) {
-           
 		}
+		
 		txtDataPed.setBounds(623, 143, 72, 20);
 		txtDataPed.setColumns(10);
 		desktopPane.add(txtDataPed);
+
+		DateFormat txtDataPed = new SimpleDateFormat("EEEE dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		System.out.println(txtDataPed.format(date));
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(70, 224, 748, 206);
 		desktopPane.add(scrollPane);
 
 		tblTable = new JTable();
-		tblTable.setEnabled(false);
-		tblTable.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Rua", "Numero", "Valor", "Data", "Nome", "Situacao" }));
-		tblTable.getColumnModel().getColumn(0).setPreferredWidth(125);
+		tblTable.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Rua", "Numero", "Valor", "Data", "Hora", "Nome", "Situacao"
+			}
+		));
+		tblTable.getColumnModel().getColumn(0).setPreferredWidth(130);
 		tblTable.getColumnModel().getColumn(0).setMinWidth(20);
-		tblTable.getColumnModel().getColumn(1).setPreferredWidth(47);
+		tblTable.getColumnModel().getColumn(1).setPreferredWidth(50);
 		tblTable.getColumnModel().getColumn(1).setMinWidth(20);
-		tblTable.getColumnModel().getColumn(2).setPreferredWidth(110);
+		tblTable.getColumnModel().getColumn(2).setPreferredWidth(55);
 		tblTable.getColumnModel().getColumn(2).setMinWidth(20);
-		tblTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+		tblTable.getColumnModel().getColumn(3).setPreferredWidth(55);
 		tblTable.getColumnModel().getColumn(3).setMinWidth(20);
-		tblTable.getColumnModel().getColumn(4).setPreferredWidth(60);
+		tblTable.getColumnModel().getColumn(4).setPreferredWidth(55);
 		tblTable.getColumnModel().getColumn(4).setMinWidth(20);
-		tblTable.getColumnModel().getColumn(5).setPreferredWidth(90);
+		tblTable.getColumnModel().getColumn(5).setPreferredWidth(130);
 		tblTable.getColumnModel().getColumn(5).setMinWidth(20);
+		tblTable.getColumnModel().getColumn(6).setPreferredWidth(70);
+		tblTable.getColumnModel().getColumn(6).setMinWidth(20);
 		scrollPane.setViewportView(tblTable);
+		
+		JLabel lblHora = new JLabel("Hora:");
+		lblHora.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblHora.setForeground(Color.WHITE);
+		lblHora.setBounds(705, 143, 46, 14);
+		desktopPane.add(lblHora);
+		
+		txtHora = new JTextField();
+		try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##:##");
+			txtHora = new javax.swing.JFormattedTextField(format_textField3);
+		} catch (Exception e) {
+		}
+		txtHora.setBounds(739, 143, 72, 20);
+		desktopPane.add(txtHora);
+		txtHora.setColumns(10);
+
 	}
 
 	public CadastraPedido SavePedido(JComboBox<Object> cboSitua) {
 		CadastraPedido cadPed = new CadastraPedido(txtRuaPed.getText(), Integer.parseInt(txtNumPed.getText()),
 				txtNomeClie.getText(), txtValorPed.getText(), txtDataPed.getText(),
-				cboSitua.getSelectedItem().toString());
+				cboSitua.getSelectedItem().toString(),txtHora.getText());
+
 		cadPed.setRua(txtRuaPed.getText());
 		cadPed.setNumero(Integer.parseInt(txtNumPed.getText()));
 		cadPed.setNome(txtNomeClie.getText());
 		cadPed.setData(txtDataPed.getText());
 		cadPed.setValor(txtValorPed.getText());
 		cadPed.setSituacao(cboSitua.getSelectedItem().toString());
+		cadPed.setHora(txtHora.getText());
 		return cadPed;
 	}
 
@@ -284,7 +309,18 @@ public class FormularioPedidos extends JFrame {
 		txtDataPed.setText(null);
 		txtNomeClie.setText(null);
 		txtValorPed.setText(null);
+	}
 
+	public void activeFields() {
+		// Desativando campos
+		txtRuaPed.setEditable(true);
+		txtNumPed.setEditable(true);
+		txtDataPed.setEditable(true);
+		txtNomeClie.setEditable(true);
+		txtValorPed.setEditable(true);
+	}
+
+	public void DesactFields() {
 		// Desativando campos
 		txtRuaPed.setEditable(false);
 		txtNumPed.setEditable(false);
@@ -295,8 +331,9 @@ public class FormularioPedidos extends JFrame {
 
 	private boolean fieldsValidationUser() {
 		boolean valido = true;
-		if (txtRuaPed.getText().isEmpty() || (txtNumPed.getText().isEmpty())
-				|| (txtValorPed.getText().isEmpty() || (txtNomeClie.getText().isEmpty()))) {
+		if (txtRuaPed.getText().isEmpty() || (txtNumPed.getText().isEmpty()) || (txtDataPed.getText().isEmpty())
+				|| (txtValorPed.getText().isEmpty() || (txtNomeClie.getText().isEmpty()) || (txtHora.getText().isEmpty()))) {
+			
 			valido = false;
 			JOptionPane.showMessageDialog(null, "*Preenha os campos obrigatorios");
 		}

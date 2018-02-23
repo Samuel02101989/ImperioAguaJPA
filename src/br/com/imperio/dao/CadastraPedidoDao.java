@@ -64,7 +64,7 @@ public class CadastraPedidoDao {
 	// Metodo de busca por ID
 
 	public CadastraPedido getByidCli(final Long idCadastro) {
-		CadastraPedido cad = new CadastraPedido();
+		CadastraPedido cad = new CadastraPedido(null, 0, null, null, null, null, null);
 
 		try {
 			if (idCadastro != null && !idCadastro.toString().isEmpty()) {
